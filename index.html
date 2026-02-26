@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Placement Prep Starter – 1st Year Edition</title>
+  <meta name="description" content="AI-powered personalized 8-week placement preparation roadmap for first-year engineering students. Get weekly tasks, resources, and track your progress." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Floating Particles -->
+  <div class="particles" id="particles" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <span class="logo-icon">🚀</span>
+      <span class="logo-text">PrepLaunch <span class="badge">1st Year</span></span>
+    </div>
+    <nav class="header-nav">
+      <button id="resetBtn" class="btn-ghost" title="Start Over">↺ Reset</button>
+      <button id="exportBtn" class="btn-ghost" title="Export Roadmap">📄 Export</button>
+    </nav>
+  </header>
+
+  <!-- ========== LANDING / ONBOARDING SCREEN ========== -->
+  <main id="onboardingScreen" class="screen active">
+    <div class="hero">
+      <div class="hero-tag">🎓 AI-Powered Placement Roadmap</div>
+      <h1 class="hero-title">
+        Your <span class="gradient-text">Placement Journey</span><br/>Starts Today
+      </h1>
+      <p class="hero-sub">Don't wait till 3rd year. Build the right habits now. Get a personalized 8-week plan tailored to your branch, goal, and skill level.</p>
+
+      <div class="stats-row">
+        <div class="stat"><span class="stat-num" data-target="8">0</span><span class="stat-label">Weeks</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num" data-target="200">0</span><span class="stat-label">+ Resources</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num" data-target="50">0</span><span class="stat-label">+ Tasks</span></div>
+      </div>
+    </div>
+
+    <!-- Onboarding Form -->
+    <div class="card form-card">
+      <h2 class="card-title">Tell us about yourself</h2>
+      <p class="card-sub">We'll generate a personalized roadmap in seconds.</p>
+
+      <form id="onboardingForm" novalidate>
+        <div class="form-grid">
+          <!-- Name -->
+          <div class="form-group full-width">
+            <label for="studentName">Your Name</label>
+            <input type="text" id="studentName" placeholder="e.g., Priya Sharma" autocomplete="off" required />
+          </div>
+
+          <!-- Branch -->
+          <div class="form-group">
+            <label for="branch">Branch / Department</label>
+            <div class="select-wrapper">
+              <select id="branch" required>
+                <option value="" disabled selected>Select your branch</option>
+                <option value="CSE">Computer Science (CSE)</option>
+                <option value="IT">Information Technology (IT)</option>
+                <option value="ECE">Electronics & Comm (ECE)</option>
+                <option value="EEE">Electrical & Electronics (EEE)</option>
+                <option value="MECH">Mechanical Engineering</option>
+                <option value="CIVIL">Civil Engineering</option>
+                <option value="AIDS">AI & Data Science</option>
+                <option value="AIML">AI & Machine Learning</option>
+                <option value="OTHER">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Goal -->
+          <div class="form-group">
+            <label for="goal">Primary Placement Goal</label>
+            <div class="select-wrapper">
+              <select id="goal" required>
+                <option value="" disabled selected>Select your goal</option>
+                <option value="SWE">Software Engineer (Product/SWE)</option>
+                <option value="CORE">Core Domain / PSU</option>
+                <option value="DATA">Data Science / Analytics</option>
+                <option value="FULLSTACK">Full Stack Developer</option>
+                <option value="STARTUP">Startup / Early Stage</option>
+                <option value="GENERAL">General – Explore First</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Skill Level -->
+          <div class="form-group full-width">
+            <label>Current Coding Level</label>
+            <div class="skill-pills" id="skillPills">
+              <button type="button" class="pill active" data-value="absolute">🌱 Absolute Beginner</button>
+              <button type="button" class="pill" data-value="beginner">📚 Know Basics</button>
+              <button type="button" class="pill" data-value="intermediate">💡 Intermediate</button>
+            </div>
+          </div>
+
+          <!-- Weekly Time -->
+          <div class="form-group full-width">
+            <label>How many hours/week can you dedicate?</label>
+            <div class="range-container">
+              <input type="range" id="weeklyHours" min="3" max="20" value="7" step="1" />
+              <div class="range-display"><span id="hoursDisplay">7</span> hrs/week</div>
+            </div>
+          </div>
+
+          <!-- Interests (multi-select pills) -->
+          <div class="form-group full-width">
+            <label>Areas of Interest <span class="optional">(optional – pick any)</span></label>
+            <div class="interest-pills" id="interestPills">
+              <button type="button" class="pill-interest" data-value="dsa">🧩 DSA</button>
+              <button type="button" class="pill-interest" data-value="webdev">🌐 Web Dev</button>
+              <button type="button" class="pill-interest" data-value="ml">🤖 ML/AI</button>
+              <button type="button" class="pill-interest" data-value="cp">⚔️ Competitive Programming</button>
+              <button type="button" class="pill-interest" data-value="git">🔧 Git & Tools</button>
+              <button type="button" class="pill-interest" data-value="communication">🗣️ Communication</button>
+              <button type="button" class="pill-interest" data-value="linkedin">💼 LinkedIn</button>
+              <button type="button" class="pill-interest" data-value="projects">🛠️ Projects</button>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary" id="generateBtn">
+          <span class="btn-text">✨ Generate My Roadmap</span>
+          <span class="btn-loader" hidden>Generating...</span>
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <!-- ========== ROADMAP SCREEN ========== -->
+  <main id="roadmapScreen" class="screen" hidden>
+    <!-- Profile Bar -->
+    <div class="profile-bar" id="profileBar"></div>
+
+    <!-- Progress Dashboard -->
+    <section class="dashboard">
+      <div class="dashboard-left">
+        <h2 class="dash-title">Your 8-Week Roadmap</h2>
+        <p class="dash-sub" id="dashSub"></p>
+      </div>
+      <div class="dashboard-right">
+        <div class="progress-ring-wrap">
+          <svg class="progress-ring" viewBox="0 0 120 120" aria-label="Overall progress">
+            <circle class="ring-bg" cx="60" cy="60" r="50" />
+            <circle class="ring-fill" id="ringFill" cx="60" cy="60" r="50" />
+          </svg>
+          <div class="ring-label">
+            <span class="ring-pct" id="ringPct">0%</span>
+            <span class="ring-text">Done</span>
+          </div>
+        </div>
+        <div class="dash-stats">
+          <div class="dstat"><span id="doneCount">0</span> <small>Completed</small></div>
+          <div class="dstat"><span id="totalCount">0</span> <small>Total Tasks</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Week Filter Tabs -->
+    <div class="week-tabs" id="weekTabs" role="tablist" aria-label="Week selector"></div>
+
+    <!-- Roadmap Content -->
+    <section class="roadmap-content" id="roadmapContent" role="tabpanel"></section>
+
+    <!-- Motivational Footer -->
+    <div class="motivational" id="motivational">
+      <span class="mot-icon">💡</span>
+      <span class="mot-text" id="motText"></span>
+    </div>
+  </main>
+
+  <!-- ========== EXPORT MODAL ========== -->
+  <div class="modal-overlay" id="exportModal" hidden>
+    <div class="modal">
+      <button class="modal-close" id="closeExport">✕</button>
+      <h3>📄 Export Roadmap</h3>
+      <p>Copy your personalized roadmap as plain text to save or share.</p>
+      <textarea id="exportText" readonly></textarea>
+      <button class="btn-primary" id="copyBtn">📋 Copy to Clipboard</button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
